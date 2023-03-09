@@ -1,8 +1,5 @@
 FROM node:16.17.0-alpine
 
-# App must run on port 8000
-# Add your instructions to dockerize the application
-
 # Create app directory
 WORKDIR /usr/src/app
 
@@ -17,3 +14,5 @@ COPY . .
 EXPOSE 8000
 
 CMD [ "npm", "start" ]
+
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD wget -q --spider http://localhost:8000/_health || exit 1
