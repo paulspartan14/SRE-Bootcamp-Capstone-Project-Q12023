@@ -1,0 +1,16 @@
+require('dotenv').config()
+const jwt = require("jsonwebtoken")
+const { SECRET } = process.env
+
+export const protectFunction = (authorization) => {
+  try {
+    const verifyUser = jwt.verify(authorization.split(' ')[1], SECRET)
+    if (verifyUser) {
+      return true
+    }
+    return null
+  } catch (err) {
+    console.log(`this is ${err}`)
+    return null
+  }
+}
